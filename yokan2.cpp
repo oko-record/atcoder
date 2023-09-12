@@ -17,14 +17,14 @@ bool solve(int m)
             pre = a[i];
         }
     }
-    if (cnt >= k)
+    if (cnt == k)
         return true;
     return false;
 }
 
 int main()
 {
-    n, l, k;
+    int n, l, k;
     cin >> n >> l;
     cin >> k;
 
@@ -35,7 +35,7 @@ int main()
         a.push_back(a_input);
     }
 
-    int left = 0, right = l;
+    int left = -1, right = l + 1;
 
     while (right - left > 1)
     {

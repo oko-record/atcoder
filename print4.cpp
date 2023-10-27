@@ -1,39 +1,42 @@
 #include <iostream>
 #include <vector>
+#include <string>
 #include <map>
-
+#include <cmath>
+#include <climits>
+#include <algorithm>
+#include <iomanip>
+#include <queue>
 using namespace std;
+#define rep(i,n) for (int i = 0; i < (n); ++i)
 using ll = long long;
+using P = pair<ll,ll>;
 
 int main() {
-    int n;
-    cin >> n;
+  int n;
+  cin >> n;
+  vector<P> a(n);
+  rep(i,n) {
+    ll t, d;
+    cin >> t >> d;
+    a[i] = P(t,t+d);
+  }
+  sort(a.begin(), a.end());
 
-    map<ll, vector<ll>> span;
-
-    for (int i = 0; i < n; i++) {
-        ll t, d;
-        cin >> t >> d;
-        span[t].push_back(d);
+  int ans = 0;
+  ll t = 0;
+  int ai = 0;
+  priority_queue<ll,vector<ll>,greater<ll>> q;
+  while (ai < n || !q.empty()) {
+    while (ai < n && a[ai].first <= t) {
+      q.push(a[ai].second);
+      ai++;
     }
-
-    ll ans = 0;
-    multiset<ll> min_deltas;
-
-    for (int i = 1; i <= 2 * 100000; i++) {
-        if (span.find(i) != span.end()) {
-            for (ll delta : span[i]) {
-                min_deltas.insert(delta);
-            }
-        }
-
-        if (!min_deltas.empty()) {
-            ll min_delta = *min_deltas.begin();
-            min_deltas.erase(min_deltas.begin());
-            ans++;
-        }
-    }
-
-    cout << ans << endl;
-    return 0;
+    while (!q.empty() && q.top() < t) q.pop();
+    if (!q.empty()) ans++, q.pop();
+    if (q.empty() && ai < n) t = a[ai].first;
+    else t++;
+  }
+  cout << ans << endl;
+  return 0;
 }

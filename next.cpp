@@ -25,7 +25,11 @@ int main()
             max2 = max;
             max = a[i];
         }
-        else if (a[i] < max && a[i] > max2)
+        else if (a[i] == max)
+        {
+            continue;
+        }
+        else if (a[i] > max2)
         {
             max2 = a[i];
         }

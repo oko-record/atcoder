@@ -16,5 +16,11 @@ using ll = long long;
 
 int main()
 {
-
+    int n, num = 1;
+    cin >> n;
+    rep(i, 0, n * 2 + 1)
+    {
+        cout << num;
+        num = 1 - num;
+    }
 }
